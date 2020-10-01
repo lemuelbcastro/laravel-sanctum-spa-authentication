@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\User as UserResource;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,7 +17,7 @@ class AuthController extends Controller
         ]);
 
         if (Auth::attempt($validated)) {
-            return response()->json(['user' => Auth::user()]);
+            return response()->json(['user' => new UserResource(Auth::user())]);
         }
 
         throw new AuthenticationException;
@@ -24,6 +25,6 @@ class AuthController extends Controller
 
     public function user(Request $request)
     {
-        return $request->user();
+        return new UserResource($request->user());
     }
 }
