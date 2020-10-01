@@ -21,4 +21,9 @@ class AuthController extends Controller
 
         throw new AuthenticationException;
     }
+
+    public function user(Request $request)
+    {
+        return $request->user();
+    }
 }
